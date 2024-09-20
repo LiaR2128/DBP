@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Avanzado en PHP</title>
+</head>
+<body>
+
+    <h2>Formulario de Registro</h2>
+
+    <?php
+    // Verifica si el formulario fue enviado
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Recoge y limpia los datos enviados
+        $nombre = htmlspecialchars($_POST['nombre']);
+        $fecha_nacimiento = htmlspecialchars($_POST['fecha_nacimiento']);
+        $ocupacion = htmlspecialchars($_POST['ocupacion']);
+        $contacto = htmlspecialchars($_POST['contacto']);
+        $nacionalidad = htmlspecialchars($_POST['nacionalidad']);
+        $nivel_ingles = htmlspecialchars($_POST['nivel_ingles']);
+        $lenguajes_programacion = isset($_POST['lenguajes_programacion']) ? $_POST['lenguajes_programacion'] : [];
+        $aptitudes = htmlspecialchars($_POST['aptitudes']);
+        $habilidades = isset($_POST['habilidades']) ? $_POST['habilidades'] : [];
+        $perfil = htmlspecialchars($_POST['perfil']);
+
+        // Muestra los datos recibidos
+        echo "<h3>Datos recibidos:</h3>";
+        echo "Nombre y Apellidos: " . $nombre . "<br>";
+        echo "Fecha de Nacimiento: " . $fecha_nacimiento . "<br>";
+        echo "Ocupación: " . $ocupacion . "<br>";
+        echo "Contacto: " . $contacto . "<br>";
+        echo "Nacionalidad: " . $nacionalidad . "<br>";
+        echo "Nivel de inglés: " . $nivel_ingles . "<br>";
+        echo "Lenguajes de programación: " . implode(", ", $lenguajes_programacion) . "<br>";
+        echo "Aptitudes: " . $aptitudes . "<br>";
+        echo "Habilidades: " . implode(", ", $habilidades) . "<br>";
+        echo "Perfil: " . nl2br($perfil) . "<br>";
+    }
+    ?>
+
+    <!-- Formulario -->
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+        <!-- Nombre y Apellidos -->
+        <label for="nombre">Nombre y Apellidos:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <!-- Fecha de Nacimiento -->
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
+
+        <!-- Ocupación -->
+        <label for="ocupacion">Ocupación:</label><br>
+        <input type="text" id="ocupacion" name="ocupacion" required><br><br>
+
+        <!-- Contacto (Teléfono o Email) -->
+        <label for="contacto">Contacto (Teléfono o Email):</label><br>
+        <input type="text" id="contacto" name="contacto" required><br><br>
+
+        <!-- Nacionalidad -->
+        <label for="nacionalidad">Nacionalidad:</label><br>
+        <select id="nacionalidad" name="nacionalidad" required>
+            <option value="peruano">Peruano</option>
+            <option value="argentino">Argentino</option>
+            <option value="mexicano">Mexicano</option>
+            <option value="español">Español</option>
+        </select><br><br>
+
+        <!-- Nivel de Inglés -->
+        <label>Nivel de Inglés:</label><br>
+        <input type="radio" id="basico" name="nivel_ingles" value="básico" required>
+        <label for="basico">Básico</label><br>
+        <input type="radio" id="intermedio" name="nivel_ingles" value="intermedio">
+        <label for="intermedio">Intermedio</label><br>
+        <input type="radio" id="avanzado" name="nivel_ingles" value="avanzado">
+        <label for="avanzado">Avanzado</label><br>
+        <input type="radio" id="fluido" name="nivel_ingles" value="fluido">
+        <label for="fluido">Fluido</label><br><br>
+
+        <!-- Lenguajes de Programación -->
+        <label for="lenguajes_programacion">Lenguajes de Programación:</label><br>
+        <select id="lenguajes_programacion" name="lenguajes_programacion[]" multiple required>
+            <option value="php">PHP</option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="c++">C++</option>
+            <option value="java">Java</option>
+        </select><br><br>
+
+        <!-- Aptitudes -->
+        <label for="aptitudes">Aptitudes:</label><br>
+        <input list="aptitudes_lista" id="aptitudes" name="aptitudes">
+        <datalist id="aptitudes_lista">
+            <option value="Liderazgo">
+            <option value="Trabajo en equipo">
+            <option value="Creatividad">
+            <option value="Resolución de problemas">
+        </datalist><br><br>
+
+        <!-- Habilidades -->
+        <label for="habilidades">Habilidades:</label><br>
+        <input type="checkbox" id="habilidad1" name="habilidades[]" value="Desarrollo Web">
+        <label for="habilidad1">Desarrollo Web</label><br>
+        <input type="checkbox" id="habilidad2" name="habilidades[]" value="Bases de Datos">
+        <label for="habilidad2">Bases de Datos</label><br>
+        <input type="checkbox" id="habilidad3" name="habilidades[]" value="Inteligencia Artificial">
+        <label for="habilidad3">Inteligencia Artificial</label><br><br>
+
+        <!-- Perfil -->
+        <label for="perfil">Perfil:</label><br>
+        <textarea id="perfil" name="perfil" rows="5" required></textarea><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+</body>
+</html>
